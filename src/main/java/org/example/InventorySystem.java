@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.*;
+
 public class InventorySystem {
 
     private static Map<String, Integer> inventory = new HashMap<>();
@@ -11,9 +12,18 @@ public class InventorySystem {
         inventory.put("eggs", 30);
     }
 
+    public static Map<String, Integer> getInventory() {
+        return inventory;
+    }
 
-    public void addProduct( String productName, int quantity) {
+
+    public void addProduct(String productName, int quantity) {
         productName = productName.toLowerCase();
+        if (quantity <= 0) {
+            System.out.println("Invalid quantity. Must be greater than 0.");
+            return;
+        }
+
         if (inventory.containsKey(productName)) {
             System.out.println(productName + " already exists. Updating quantity.");
             inventory.put(productName, inventory.get(productName) + quantity);
@@ -25,15 +35,13 @@ public class InventorySystem {
 
     public void checkProduct(String productName){
         productName = productName.toLowerCase();
-        if (inventory.containsKey(productName.toLowerCase())) {
-            System.out.println("Product Name: " + productName);
-            System.out.println("Quantity: " + inventory.get(productName));
-        }
-        else {
+        if (inventory.containsKey(productName)) {
+            System.out.println("Product name: " + productName + "\nQuantity: " + inventory.get(productName));
+        } else {
             System.out.println(productName + " is not in inventory.");
         }
-
     }
+
 
     public void updateProduct(String productName, int quantityChange) {
         productName = productName.toLowerCase();
